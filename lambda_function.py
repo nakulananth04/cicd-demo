@@ -42,8 +42,9 @@ def lambda_handler(event, context):
         t = json.loads(h)
         # file = pd.DataFrame((t))
         dummy = pd.json_normalize(t)
+        dummy1 = dummy1.append(dummy)
     csv_buffer = StringIO()
-    dummy.to_csv(csv_buffer, index=False);
+    dummy1.to_csv(csv_buffer, index=False);
     s3_resource.Object(bucket1, s3_file_key).put(Body=csv_buffer.getvalue())
 
     """
