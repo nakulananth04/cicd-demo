@@ -33,7 +33,7 @@ def lambda_handler(event, context):
     s3_resource.Object(bucket, s3_file_key).put(Body=csv_buffer.getvalue())
 
     bucket = 'imdb01';
-    all_titles = df1['Title']
+    all_titles = df1['title']
     #tv_titles_head = all_titles.head()
     for i in all_titles:
         web = 'https://www.omdbapi.com/?t=' + str(i) + '&apikey=caab7032'
