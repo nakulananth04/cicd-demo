@@ -36,16 +36,16 @@ def lambda_handler(event, context):
 
     bucket='imdb01'
     dummy1 = pd.DataFrame()
-    for i in initial_df['title']:
+    for i in df['title']:
         web = 'https://www.omdbapi.com/?t=' + i + '&apikey=9b925aaa'
         response_API = requests.get(web)
         h = response_API.text
         t = json.loads(h)
         # file = pd.DataFrame((t))
         dummy = pd.json_normalize(t)
-        dummy1 = dummy1.append(dummy)
+        #dummy1 = dummy1.append(dummy)
     csv_buffer = StringIO()
-    dummy1.to_csv(csv_buffer, index=False);
+    dummy.to_csv(csv_buffer, index=False);
     s3_resource.Object(bucket1, s3_file_key).put(Body=csv_buffer.getvalue())
 
     """
