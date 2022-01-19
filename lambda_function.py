@@ -31,3 +31,19 @@ def lambda_handler(event, context):
     csv_buffer = StringIO()
     df1.to_csv(csv_buffer,index=False);
     s3_resource.Object(bucket, s3_file_key).put(Body=csv_buffer.getvalue())
+
+    bucket = 'imdb01';
+    all_titles = df1['Title']
+    #tv_titles_head = all_titles.head()
+    for i in all_titles:
+        web = 'https://www.omdbapi.com/?t=' + str(i) + '&apikey=caab7032'
+        response_API = requests.get(web)
+        api_text = response_API.text
+        json_text = json.loads(api_text)
+        # print(json_text)
+        final = pd.json_normalize(json_text)
+        #print(final)
+        # final.to_csv("existing_tv.csv", mode="a", index=False, header=False)
+        csv_buffer = StringIO()
+        final.to_csv(csv_buffer, index=False);
+        s3_resource.Object(bucket, s3_file_key).put(Body=csv_buffer.getvalue())
