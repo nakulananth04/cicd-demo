@@ -35,7 +35,7 @@ def lambda_handler(event, context):
     s3_resource.Object(bucket, s3_file_key).put(Body=csv_buffer.getvalue())
 
     bucket='imdb01'
-    #dummy1 = pd.DataFrame()
+    dummy1 = pd.DataFrame()
     for i in df['title']:
         web = 'https://www.omdbapi.com/?t=' + i + '&apikey=9b925aaa'
         response_API = requests.get(web)
@@ -43,10 +43,10 @@ def lambda_handler(event, context):
         t = json.loads(h)
         # file = pd.DataFrame((t))
         dummy = pd.json_normalize(t)
-        #dummy1 = dummy1.append(dummy)
-    csv_buffer = StringIO()
-    dummy.to_csv(csv_buffer, index=False);
-    s3_resource.Object(bucket1, s3_file_key).put(Body=csv_buffer.getvalue())
+        dummy1 = dummy1.append(dummy)
+    csv_buffer1 = StringIO()
+    dummy1.to_csv(csv_buffer, index=False);
+    s3_resource.Object(bucket1, s3_file_key).put(Body=csv_buffer1.getvalue())
 
     """
     bucket1 = 'imdb01';
