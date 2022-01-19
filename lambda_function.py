@@ -28,21 +28,12 @@ def lambda_handler(event, context):
         aws_secret_access_key=aws_secret_access_key
     )
     bucket='targetbucketdemo1';
-    bucket1='imdb01'
     df = initial_df[(initial_df.type == "Movie")];
     df1 = df.loc[:, ~df.columns.isin(['date_added', 'description', 'duration'])];
-    all_titles = df1['title']
-    for i in all_titles:
-        web = 'https://www.omdbapi.com/?t=' + str(i) + '&apikey=caab7032'
-        response_API = requests.get(web)
-        api_text = response_API.text
-        json_text = json.loads(api_text)
-        final = pd.json_normalize(json_text)
     csv_buffer = StringIO()
     df1.to_csv(csv_buffer,index=False);
     s3_resource.Object(bucket, s3_file_key).put(Body=csv_buffer.getvalue())
     final.to_csv(csv_buffer, index=False);
-    s3_resource.Object(bucket1, s3_file_key).put(Body=csv_buffer.getvalue())
 
 
 
