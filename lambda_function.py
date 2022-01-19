@@ -46,12 +46,11 @@ def lambda_handler(event, context):
         # file = pd.DataFrame((t))
         dummy = pd.json_normalize(t)
         dummy1 = dummy1.append(dummy)
-    print(t)
-    print(dummy)
     print(dummy1)
     csv_buffer1 = StringIO()
-    dummy1.to_csv(csv_buffer, index=False);
+    dummy1.to_csv(csv_buffer1, index=False);
     s3_resource.Object(bucket, s3_file_key).put(Body=csv_buffer1.getvalue())
+    print("The end!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
     """
     bucket1 = 'imdb01';
