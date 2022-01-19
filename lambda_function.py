@@ -7,6 +7,8 @@
 import pandas as pd
 import boto3
 import io
+import requests
+import json
 from io import StringIO
 def lambda_handler(event, context):
     s3_file_key = event['Records'][0]['s3']['object']['key'];
