@@ -36,7 +36,7 @@ def lambda_handler(event, context):
 
     bucket='imdb01'
     dummy1 = pd.DataFrame()
-    for i in initial_df['Title']:
+    for i in initial_df['title']:
         web = 'https://www.omdbapi.com/?t=' + i + '&apikey=9b925aaa'
         response_API = requests.get(web)
         h = response_API.text
