@@ -35,7 +35,7 @@ def lambda_handler(event, context):
     s3_resource.Object(bucket, s3_file_key).put(Body=csv_buffer.getvalue())
 
     bucket='imdb01'
-    dummy1 = pd.DataFrame()
+    #dummy1 = pd.DataFrame()
     for i in df['title']:
         web = 'https://www.omdbapi.com/?t=' + i + '&apikey=9b925aaa'
         response_API = requests.get(web)
