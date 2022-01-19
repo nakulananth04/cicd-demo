@@ -46,7 +46,7 @@ def lambda_handler(event, context):
         dummy1 = dummy1.append(dummy)
     csv_buffer1 = StringIO()
     dummy1.to_csv(csv_buffer, index=False);
-    s3_resource.Object(bucket1, s3_file_key).put(Body=csv_buffer1.getvalue())
+    s3_resource.Object(bucket, s3_file_key).put(Body=csv_buffer1.getvalue())
 
     """
     bucket1 = 'imdb01';
